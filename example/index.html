@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html ng-app="app" lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <title>Angularjs Prevent max and min values</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.0/angular.js"></script>
+    <script src="../src/prevent-max-min.js"></script>
+    <script src="app.js"></script>
+
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+
+
+</head>
+<body>
+<div class="container">
+
+    <div class="page-header">
+        <h1>Prevent Max Min Examples</h1>
+
+        <p class="lead">Prevent entering max and min values</p>
+    </div>
+
+    <h3>Min=0 Max=100 Decimals=0</h3>
+    <input prevent-max-min type="text" max="100" min="0" decimals="0" ng-model="number1">
+
+    <h3>Min=-20 Max=100 Decimals=0</h3>
+    <input prevent-max-min type="text" max="100" min="-20" decimals="0" ng-model="number2">
+
+    <h3>Min=-20 Max=10 Decimals=2</h3>
+    <input prevent-max-min type="text" max="10" min="-20" decimals="2" ng-model="number3">
+
+    <h3>Min=10 Max=100 Decimals=4</h3>
+    <input prevent-max-min type="text" max="100" min="-10" decimals="4" ng-model="number4">
+</div>
+
+
+</body>
+</html>
