@@ -37,11 +37,13 @@
 
             var max;
             var min;
-            var decimals;
+            var decimals=0;
 
             scope.$watch(attrs.min, onMinChanged);
             scope.$watch(attrs.max, onMaxChanged);
             scope.$watch(attrs.decimals, onDecimalsChanged);
+
+            ngModelCtrl.$parsers.push(parseViewValue);
 
             var lastValue;
 
@@ -65,8 +67,6 @@
                     lastValue = ngModelCtrl.$modelValue;
                 }
             }
-
-            ngModelCtrl.$parsers.push(parseViewValue);
 
             if (decimals > -1) {
                 ngModelCtrl.$formatters.push(function (value) {
