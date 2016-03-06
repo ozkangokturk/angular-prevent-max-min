@@ -5,6 +5,25 @@
 (function () {
     'use strict';
 
+    /**
+     * @ngdoc directive
+     * @name app.directive:preventMaxMin
+     * @restrict 'A'
+     * @element input
+     * @description
+     *
+     *
+     * ## Example:
+     ``` html
+     <input prevent-max min="0" max="100" decimals="1" />
+     ```
+     *
+     *
+     * @param {number} max Input prevents entering a value that exceeds this maximum value
+     * @param {number} min If this value is negative, input prevents entering a value that falls below this minimum value
+     * @param {number} decimal The number of decimals can be set.
+     *
+     */
     angular.module('preventMaxMin', []).directive('preventMaxMin', PreventMaxMin);
 
     PreventMaxMin.$inject = [];
@@ -16,10 +35,36 @@
             var REGEXP = "^\\s*(\\-|\\+)?(\\d+|(\\d*(\\.\\d*)))\\s*$";
             var regex = new RegExp(REGEXP);
 
-            var max = parseFloat(scope.max);
-            var min = parseFloat(scope.min);
-            var decimals = parseFloat(scope.decimals);
+            var max;
+            var min;
+            var decimals;
+
+            scope.$watch(attrs.min, onMinChanged);
+            scope.$watch(attrs.max, onMaxChanged);
+            scope.$watch(attrs.decimals, onDecimalsChanged);
+
             var lastValue;
+
+            function onMinChanged(value) {
+                if (!angular.isUndefined(value)) {
+                    min = parseFloat(value);
+                    lastValue = ngModelCtrl.$modelValue;
+                }
+            }
+
+            function onMaxChanged(value) {
+                if (!angular.isUndefined(value)) {
+                    max = parseFloat(value);
+                    lastValue = ngModelCtrl.$modelValue;
+                }
+            }
+
+            function onDecimalsChanged(value) {
+                if (!angular.isUndefined(value)) {
+                    decimals = parseFloat(value);
+                    lastValue = ngModelCtrl.$modelValue;
+                }
+            }
 
             ngModelCtrl.$parsers.push(parseViewValue);
 
@@ -102,11 +147,6 @@
         return {
             restrict: 'A',
             require: 'ngModel',
-            scope: {
-                'min': '@',
-                'max': '@',
-                'decimals': '@'
-            },
             link: _postLink
         };
     }
